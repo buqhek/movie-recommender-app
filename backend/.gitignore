@@ -1,0 +1,4 @@
+# Backend files to be ignored by Git
+
+__pycache__/
+env
