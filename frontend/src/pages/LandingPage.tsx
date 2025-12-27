@@ -1,18 +1,6 @@
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
-// const loginHandler = () => {
-//   console.log("Send user to login page.\n");
-// };
-
-// const createHandler = () => {
-//   console.log("Send user to sign up page.\n");
-// };
-
-// const guestHandler = () => {
-//   console.log("Send user to main page.\n");
-// };
-
 function LandingPage() {
   const navigate = useNavigate();
 
