@@ -1,7 +1,5 @@
-import React from "react";
-
 function Query() {
-  return <div>Query</div>;
+  return <h1>TODO: Build Query Page</h1>;
 }
 
 export default Query;
