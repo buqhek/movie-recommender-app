@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import Button from "../components/Button";
 
 const loginFormHandler = () => {
@@ -5,6 +6,10 @@ const loginFormHandler = () => {
 };
 
 function Login() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <>
       <div className="form-floating mb-3">

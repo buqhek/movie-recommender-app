@@ -1,4 +1,22 @@
-# Backend files to be ignored by Git
+# Environment variables
+.env
 
+# Database
+*.db
+
+# Python
 __pycache__/
-env
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environment
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
