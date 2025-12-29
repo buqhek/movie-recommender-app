@@ -24,6 +24,15 @@ def create_app(config_class=DevelopmentConfig):
     # Initialize Database
     init_db(app.config['DATABASE_PATH'])
 
+    # Test route
+    @app.route('/')
+    def hello():
+        return {'message': 'Movie Recommender API is running!'}
+
+    @app.route('/api/v1/health')
+    def health_check():
+        return {'status': 'healthy', 'database': app.config['DATABASE_PATH']}
+
     return app
               
 if __name__ == '__main__':
