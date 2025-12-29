@@ -58,6 +58,9 @@ class Database:
             `sql_command`: SQL query with ? placeholders
             `params`: Tuple of values to substitute into the query
         
+        Returns:
+            Number of rows affected
+
         Example:
             db.execute('INSERT INTO users VALUES (?,?,?)', ('hektor','hektor@email.com','password',))\n
             db.execute('UPDATE users SET username = ?, email = ?', ('hektor','hektor@email.com',))\n
@@ -71,6 +74,42 @@ class Database:
                 cursor.execute(sql_command,params)
             else:
                 cursor.execute(sql_command)
+            
+            conn.commit()
+            return cursor.rowcount
+        
+        except sqlite3.Error as e:
+            conn.rollback()
+            print(f'Database error: {e}')
+            raise
+        
+        finally:
+            conn.close()
+
+    def execute_many(self, sql_command, params_list):
+        """
+        Executes the same sql command (INSERT/UPDATE/DELETE) multiple times with different parameters
+
+        Args:
+            `sql_command`: SQL query with ? placeholders
+            `params`: Tuple of values to substitute into the query
+        
+        Returns:
+            Number of rows affected
+        
+            Example:
+                users = [
+                ('user1', 'user1@email.com', 'pass1'),
+                ('user2', 'user2@email.com', 'pass2'),
+                ('user3', 'user3@email.com', 'pass3'),
+            ]
+            db.execute_many('INSERT INTO users VALUES (?, ?, ?)', users)
+        """
+        conn = self.get_conn()
+        try:
+            cursor = conn.cursor()
+            
+            cursor.executemany(sql_command, params_list)
             
             conn.commit()
             return cursor.rowcount
