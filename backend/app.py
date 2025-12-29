@@ -1,5 +1,6 @@
 from flask import Flask
 from config import DevelopmentConfig
+from api import api_bp, register_routes
 import sqlite3
 import os
 
@@ -24,14 +25,9 @@ def create_app(config_class=DevelopmentConfig):
     # Initialize Database
     init_db(app.config['DATABASE_PATH'])
 
-    # Test route
-    @app.route('/')
-    def hello():
-        return {'message': 'Movie Recommender API is running!'}
-
-    @app.route('/api/v1/health')
-    def health_check():
-        return {'status': 'healthy', 'database': app.config['DATABASE_PATH']}
+    # Register all routes through blueprints
+    register_routes(api_bp)
+    app.register_blueprint(api_bp)
 
     return app
               

@@ -1,20 +1,13 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify
 
-user_bp = Blueprint('users', __name__, url_prefix='/users')
-
-@user_bp.route('/signup', methods=['POST'])
-def signup():
-    
-    return
-
-@user_bp.route('/login', methods=['POST'])
-def login():
-    return
+user_bp = Blueprint('users', __name__)
 
 @user_bp.route('/account', methods=['GET'])
 def get_account():
-    return
+    """Returns account information."""
+    return jsonify({'message': 'GET account endpoint - not yet implemented.'}), 504
 
 @user_bp.route('/account', methods=['POST'])
 def modify_account():
-    return
+    """Modifies the account's email, username, or password."""
+    return jsonify({'message': 'Modify account endpoint - not yet implemented.'}), 504
