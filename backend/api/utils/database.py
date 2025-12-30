@@ -1,10 +1,9 @@
 """Holds all database helper functions for the backend server."""
-import os
 import sqlite3
 
 
 class Database:
-    def __init__(self,  db_path):
+    def __init__(self,  db_path: str):
         self.db_path = db_path
 
     def get_conn(self):
@@ -21,13 +20,13 @@ class Database:
             raise
         
     
-    def query(self, sql_command, params=None):
+    def query(self, sql_command: str, params=None):
         """
         Executes a SELECT query and returns a list of dictionaries.
 
         Args:
-            `sql_command`: SQL query string with ? placeholders
-            `params`: Tuple of values to substitute into the query
+            sql_command: SQL query string with ? placeholders
+            params: Tuple of values to substitute into the query
 
         Example: 
             db.query('SELECT * FROM USERS WHERE username = ?', ('hektor',))
@@ -49,21 +48,26 @@ class Database:
         
         finally:
             conn.close()
-    
-    def execute(self, sql_command, params=None):
+
+
+    def execute(self, sql_command: str, params=None):
         """
         Executes INSERT/UPDATE/DELETE command
 
         Args:
-            `sql_command`: SQL query with ? placeholders
-            `params`: Tuple of values to substitute into the query
+            sql_command: SQL query with ? placeholders
+            params: Tuple of values to substitute into the query
         
         Returns:
             Number of rows affected
 
         Example:
-            db.execute('INSERT INTO users VALUES (?,?,?)', ('hektor','hektor@email.com','password',))\n
-            db.execute('UPDATE users SET username = ?, email = ?', ('hektor','hektor@email.com',))\n
+            db.execute('INSERT INTO users VALUES (?,?,?)',
+            ('hektor','hektor@email.com','password',))
+            
+            db.execute('UPDATE users SET username = ?, email = ?',
+            ('hektor','hektor@email.com',))
+            
             db.execute('DELETE FROM users WHERE username = ?', ('hektor',))
         """
         conn = self.get_conn()
@@ -86,13 +90,15 @@ class Database:
         finally:
             conn.close()
 
-    def execute_many(self, sql_command, params_list):
+
+    def execute_many(self, sql_command: str, params_list):
         """
-        Executes the same sql command (INSERT/UPDATE/DELETE) multiple times with different parameters
+        Executes the same sql command (INSERT/UPDATE/DELETE) multiple times
+        with different parameters
 
         Args:
-            `sql_command`: SQL query with ? placeholders
-            `params`: Tuple of values to substitute into the query
+            sql_command: SQL query with ? placeholders
+            params: Tuple of values to substitute into the query
         
         Returns:
             Number of rows affected

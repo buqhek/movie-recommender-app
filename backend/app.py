@@ -1,8 +1,10 @@
+"""The backend server app."""
 from flask import Flask
 from config import DevelopmentConfig
 from api import api_bp, register_routes
 import sqlite3
 import os
+
 
 def init_db(database_path):
     """Initialize database if it doesn't exist."""
@@ -17,6 +19,7 @@ def init_db(database_path):
     else:
         print(f"Database already exists at {database_path}")
 
+
 def create_app(config_class=DevelopmentConfig):
     """Creates the flask server."""
     app = Flask(__name__)
@@ -30,7 +33,8 @@ def create_app(config_class=DevelopmentConfig):
     app.register_blueprint(api_bp)
 
     return app
-              
+
+
 if __name__ == '__main__':
     app = create_app()
     app.run()

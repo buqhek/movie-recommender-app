@@ -1,4 +1,6 @@
+"""Holds all functions, models, and routes for the api repository."""
 from flask import Blueprint
+
 
 # Main API blueprint that will be connected to the app
 api_bp = Blueprint('api', __name__, url_prefix='/api/v1')
@@ -13,5 +15,3 @@ def register_routes(api_blueprint):
     api_blueprint.register_blueprint(user_bp)  # No url prefix, so it
                                                # will be found at 
                                                # /api/v1/account/
-
-    return
