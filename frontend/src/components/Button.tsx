@@ -13,6 +13,7 @@ interface Props {
     | "dark"
     | "link";
   onClick: () => void;
+  disabled?: boolean;
 }
 
 const Button = ({ children, onClick, color = "primary" }: Props) => {
