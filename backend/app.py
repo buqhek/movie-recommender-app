@@ -1,5 +1,6 @@
 """The backend server app."""
 from flask import Flask
+from flask_cors import CORS
 from config import DevelopmentConfig
 from api import api_bp, register_routes
 import sqlite3
@@ -31,6 +32,9 @@ def create_app(config_class=DevelopmentConfig):
     # Register all routes through blueprints
     register_routes(api_bp)
     app.register_blueprint(api_bp)
+
+    # Enable CORS
+    CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 
     return app
 
