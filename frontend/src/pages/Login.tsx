@@ -35,9 +35,6 @@ function Login() {
         body: JSON.stringify({ username, password }),
       });
 
-      // Parse the response into data. NO NEED FOR THE DATA
-      // const data = await response.json();
-
       // Navigate to the write page if correct, display error otherwise
       if (response.status == 200) {
         // Send to query (main page)
@@ -56,6 +53,7 @@ function Login() {
       setLoading(false); // Request went all the way through, allow to try again
     }
   };
+
   return (
     <form
       onSubmit={(e) => {
