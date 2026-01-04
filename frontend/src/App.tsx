@@ -13,11 +13,11 @@ function App() {
       <Routes>
         {/* LandingPage without navbar */}
         <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
 
         {/* All other pages with navbar using Layout */}
         <Route element={<Layout />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
           <Route path="/query" element={<Query />} />
           <Route path="/account" element={<Account />} />
         </Route>

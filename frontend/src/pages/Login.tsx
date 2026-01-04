@@ -7,6 +7,19 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
+
+  // Validation states
+  const [emailError, setEmailError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [touched, setTouched] = useState({
+    email: false,
+    username: false,
+    password: false,
+    confirmPassword: false,
+  });
+
   const navigate = useNavigate();
 
   // Updates the state of username after every keystroke for the input
@@ -73,7 +86,7 @@ function Login() {
         <label htmlFor="floatingInput">Username</label>
       </div>
 
-      <div className="form-floating">
+      <div className="form-floating mb-3">
         <input
           type="password"
           className="form-control"
@@ -96,7 +109,7 @@ function Login() {
         >
           {loading ? "Logging in..." : "Login"}
         </button>
-        {error && <p className="button-error-text">{error}</p>}
+        {error && <p className="text-danger">{error}</p>}
       </div>
     </form>
   );

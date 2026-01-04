@@ -14,7 +14,7 @@ function Account() {
     setLoading(true);
 
     try {
-      const response = await fetch("asdf", {
+      const response = await fetch("http://localhost:5000/api/v1/auth/logout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -56,7 +56,7 @@ function Account() {
         >
           Logout
         </button>
-        {error && <p className="button-error-text">{error}</p>}
+        {error && <p className="text-danger">{error}</p>}
       </div>
     </form>
   );
