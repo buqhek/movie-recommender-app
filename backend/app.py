@@ -15,7 +15,16 @@ def init_db(database_path):
         with open('data/schema.sql', 'r') as f:
             conn.executescript(f.read())
         conn.commit()
+        
+        # Read in movies from movie_titles.txt
+        with open('data/movie_titles.txt', 'r', encoding='utf-8') as f:
+            movies = [line.strip() for line in f]
+
+        conn.execute_many('INSERT INTO movies (title) VALUES (?)', movies)
+        conn.commit()
+
         conn.close()
+
         print(f"Database initialized at {database_path}")
     else:
         print(f"Database already exists at {database_path}")

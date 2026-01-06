@@ -9,7 +9,9 @@ def register_routes(api_blueprint):
     """Register all route blueprints."""
     from api.routes.auth import auth_bp
     from api.routes.user import user_bp
+    from api.routes.movies import movies_bp
 
     # Import and register route blueprints here
     api_blueprint.register_blueprint(auth_bp, url_prefix='/auth')
     api_blueprint.register_blueprint(user_bp, url_prefix='/user')
+    api_blueprint.register_blueprint(movies_bp, url_prefix='/movies')
