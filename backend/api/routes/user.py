@@ -1,8 +1,10 @@
 """Holds all the api endpoints for the user for the backend."""
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, session
+from api.utils.auth import login_required
+from api.models.user import delete_user
 
 
-user_bp = Blueprint('users', __name__)
+user_bp = Blueprint('user', __name__)
 
 @user_bp.route('/account', methods=['GET'])
 def get_account():
@@ -12,9 +14,14 @@ def get_account():
     ), 504
 
 
-@user_bp.route('/account', methods=['POST'])
-def modify_account():
-    """Modifies the account's email, username, or password."""
+@user_bp.route('/delete', methods=['POST'])
+@login_required
+def delete_account():
+    """Deletes the account."""
+    
+    delete_user(session['username'])
+    session.clear()
+    
     return jsonify(
-        {'message': 'Modify account endpoint - not yet implemented.'}
-    ), 504
+        {'message': 'Account deleted.'}
+    ), 204

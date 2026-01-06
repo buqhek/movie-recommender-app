@@ -1,64 +1,49 @@
-import type { FormEvent } from "react";
-import { useState } from "react";
+import Logout from "../components/logout";
+import Delete from "../components/delete";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Account() {
-  const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  // Add more data as needed
+
   const navigate = useNavigate();
 
-  const handleLogout = async (
-    event: FormEvent<HTMLFormElement>
-  ): Promise<void> => {
-    event.preventDefault();
-    setLoading(true);
-
-    try {
-      const response = await fetch("http://localhost:5000/api/v1/auth/logout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      });
-
-      if (response.status == 200) {
-        navigate("/");
-      } else {
-        setError("Error: Authentiation required");
+  useEffect(() => {
+    const fetchAccountData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/v1/auth/me", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        });
+        if (response.status == 200) {
+          const data = await response.json();
+          setUsername(data["username"]);
+          setEmail(data["email"]);
+        } else if (response.status == 401) {
+          setError("User is not authenticated");
+          // navigate("/");
+        } else {
+          navigate("/");
+        }
+      } catch (err) {
+        console.log("Error:", { err });
       }
-    } catch (err) {
-      console.log("Error:", { err });
-    } finally {
-      setLoading(false);
-    }
-  };
-  // TODO: Allow for username change,
-  //       account deletion, and movie
-  //       rating updating
+    };
 
-  //   TODO: Movie rating updates (Possible Component?)
-  //       Search bar for the movie in the database.
-  //       If it exists, you make sure to have the
-  //       movie appear as a rating from 0-5 with 0.5
-  //       increments. This can be in star format, or
-  //       something for user implementation.
+    fetchAccountData();
+  }, []); // Run once
   return (
-    <form
-      onSubmit={(e) => {
-        handleLogout(e);
-      }}
-    >
-      <div>
-        <button
-          type="submit"
-          color="success"
-          className="btn btn-success"
-          disabled={loading}
-        >
-          Logout
-        </button>
-        {error && <p className="text-danger">{error}</p>}
-      </div>
-    </form>
+    <>
+      <h1>Debug: {username}</h1>
+      <h1>Debug: {email}</h1>
+      {error && <p className="text-danger">{error}</p>}
+      <Logout />
+      <Delete />
+    </>
   );
 }
 

@@ -12,6 +12,4 @@ def register_routes(api_blueprint):
 
     # Import and register route blueprints here
     api_blueprint.register_blueprint(auth_bp, url_prefix='/auth')
-    api_blueprint.register_blueprint(user_bp)  # No url prefix, so it
-                                               # will be found at 
-                                               # /api/v1/account/
+    api_blueprint.register_blueprint(user_bp, url_prefix='/user')

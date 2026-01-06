@@ -7,19 +7,6 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
-
-  // Validation states
-  const [emailError, setEmailError] = useState("");
-  const [usernameError, setUsernameError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
-  const [touched, setTouched] = useState({
-    email: false,
-    username: false,
-    password: false,
-    confirmPassword: false,
-  });
-
   const navigate = useNavigate();
 
   // Updates the state of username after every keystroke for the input

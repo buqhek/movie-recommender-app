@@ -94,3 +94,10 @@ def update_password(username: str, new_password: str) -> None:
         'UPDATE users SET password = ? WHERE username = ?',
           (new_password, username,)
     )
+
+def delete_user(username: str) -> None:
+    """Delete the user based on their username."""
+    db.execute(
+        'DELETE FROM users WHERE username = ?',
+        (username,)
+    )

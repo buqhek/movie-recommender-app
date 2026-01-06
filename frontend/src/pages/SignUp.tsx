@@ -47,6 +47,7 @@ function SignUp() {
   const validatePassword = (password: string): string => {
     if (!password) return "Password is required";
     if (password.length < 6) return "Password must be at least 6 characters";
+    if (password.length > 256) return "Password cannot be over 256 characters";
     return "";
   };
 
