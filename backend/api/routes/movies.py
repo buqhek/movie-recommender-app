@@ -9,3 +9,4 @@ movies_bp = Blueprint('movies', __name__)
 def query_movies():
     # TODO: Build movie query endpoint that takes in a POST
     # request with a user query, and default number of returned movies
+    pass
