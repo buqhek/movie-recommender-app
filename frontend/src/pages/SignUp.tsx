@@ -167,7 +167,7 @@ function SignUp() {
 
     try {
       const response = await fetch(
-        "api/v1/auth/register",
+        "/api/v1/auth/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
