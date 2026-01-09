@@ -1,12 +1,14 @@
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
+  const { login } = useAuth();  // ← Get login function
   const navigate = useNavigate();
 
   // Updates the state of username after every keystroke for the input
@@ -24,10 +26,9 @@ function Login() {
     event: FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault(); // Prevent page reload
-    setLoading(true); // User can't click button again
+    setLoading(true); 
 
     try {
-      // Make fetch request for the login api endpoint
       const response = await fetch("/api/v1/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,9 +36,9 @@ function Login() {
         body: JSON.stringify({ username, password }),
       });
 
-      // Navigate to the write page if correct, display error otherwise
       if (response.status == 200) {
-        // Send to query (main page)
+        const data = await response.json();
+        login(data);  // update global auth state
         navigate("/query");
       } else if (response.status == 400) {
         setError("Username and password are required");
@@ -45,7 +46,6 @@ function Login() {
         setError("Invalid username or password");
       }
     } catch (err) {
-      // if error, explain server issues, ask user to try again
       console.log(
         "We are having server issues right now. Try again in a couple minutes."
       );
@@ -79,9 +79,8 @@ function Login() {
           className="form-control"
           id="floatingPassword"
           placeholder="Password"
-          // Necessary to update the useStates during input
           onChange={handlePasswordInput}
-          required // Won't submit if empty
+          required 
         />
         <label htmlFor="floatingPassword">Password</label>
       </div>

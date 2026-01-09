@@ -1,10 +1,12 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Logout() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState("")
+  const { logout } = useAuth();  // ← Get logout function;
   const navigate = useNavigate();
 
   const handleLogout = async (
@@ -21,6 +23,7 @@ function Logout() {
       });
 
       if (response.status == 200) {
+        logout();  // update global auth state
         navigate("/");
       } else {
         setError("Error: Authentiation required");
