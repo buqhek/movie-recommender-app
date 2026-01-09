@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import type { ChangeEvent, FormEvent } from "react";
 
 function SignUp() {
@@ -9,6 +10,7 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const {login} = useAuth();
 
   // Validation states
   const [emailError, setEmailError] = useState("");
@@ -175,6 +177,7 @@ function SignUp() {
       );
 
       if (response.status === 201) {
+        login({ username, email});  // update global auth state
         navigate("/query");
       } else if (response.status === 400) {
         setError("Username, email, and password are required");

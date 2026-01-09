@@ -7,6 +7,7 @@ import Layout from "./Layout.tsx";
 import Account from "./pages/Account.tsx";
 import { AuthProvider} from "./context/AuthContext.tsx"
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 function App() {
   return (
@@ -22,7 +23,11 @@ function App() {
           {/* All other pages with navbar using Layout */}
           <Route element={<Layout />}>
             <Route path="/query" element={<Query />} />
-            <Route path="/account" element={<Account />} />
+            <Route path="/account" element={
+              <ProtectedRoute>
+                <Account />
+                </ProtectedRoute>
+            } />
           </Route>
         </Routes>
       </Router>

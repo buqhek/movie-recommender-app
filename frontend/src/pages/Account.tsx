@@ -8,10 +8,15 @@ function Account() {
   const { user } = useAuth();
   // Add more data as needed
 
+  if (!user) {
+    return <div><h1>Loading...</h1></div>;
+  }
+
   return (
     <>
-      <h1>Welcome, {user?.username}</h1>
-      <p>{user?.email}</p>
+      <h1>Account Settings</h1>
+      <p>Username: {user?.username}</p>
+      <p>Email: {user?.email}</p>
       <Logout />
       <Delete />
     </>

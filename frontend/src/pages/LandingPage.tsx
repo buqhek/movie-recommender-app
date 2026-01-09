@@ -18,7 +18,7 @@ function LandingPage() {
         Create Account
       </Button>
       <Button color="success" onClick={() => navigate("/query")}>
-        Continue as Guest
+        Continue
       </Button>
     </>
   );
