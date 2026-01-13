@@ -19,8 +19,19 @@ def init_db(database_path):
         # Read in movies from movie_titles.txt
         with open('data/movie_titles.txt', 'r', encoding='utf-8') as f:
             movies = [line.strip() for line in f]
-
-        conn.execute_many('INSERT INTO movies (title) VALUES (?)', movies)
+        
+        # Remove duplicates
+        seen = set()
+        unique_movies = []
+        for movie in movies:
+            if movie and movie not in seen:  # Remove empty strings
+                seen.add(movie)
+                unique_movies.append(movie)
+        
+        cursor = conn.cursor()
+        
+        cursor.executemany('INSERT INTO movies (title) VALUES (?)', [(movie,) for movie in unique_movies])
+        
         conn.commit()
 
         conn.close()

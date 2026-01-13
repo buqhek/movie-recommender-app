@@ -13,8 +13,15 @@ def query_movies():
     movie_title = request.args.get('q', '').strip()
 
     if not movie_title:
-        return jsonify({'error:' 'Movie does not exist in database'}), 200
+        return jsonify({'error' : 'Movie does not exist in database'}), 400
     
-    movie_info = db.query('SELECT * FROM movies WHERE movie = ?', (movie_title,))
+    movie_info = db.query('SELECT * FROM movies WHERE title LIKE ?', (f'%{movie_title}%',))
 
-    return movie_info
+    return jsonify(movie_info), 200
+
+@movies_bp.route('/test', methods = ['GET'])
+def test():
+    """Checks all the current movie titles within the database."""
+    all_titles = db.query('SELECT title FROM movies')
+
+    return jsonify(all_titles), 200

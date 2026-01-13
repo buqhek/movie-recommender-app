@@ -1,7 +1,5 @@
 import Logout from "../components/logout";
 import Delete from "../components/delete";
-// import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Account() {
