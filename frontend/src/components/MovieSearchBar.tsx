@@ -2,12 +2,16 @@ import { useState, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 import type { ChangeEvent } from "react";
 
-interface Movie {
+export interface Movie {
   id: number;
   title: string;
 }
 
-function MovieSearchBar() {
+interface MovieSearchBarProps {
+  onSelectMovie: (movie: Movie) => void;
+}
+
+function MovieSearchBar({onSelectMovie}: MovieSearchBarProps) {
   const {isLoggedIn} = useAuth();
   const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState<Movie[]>([]);
@@ -76,7 +80,7 @@ function MovieSearchBar() {
       {suggestions.length > 0 && searchValue !== "" && (
         <ul className="list-group">
           {suggestions.map((movie) => (
-            <li key={movie.id} className="list-group-item list-group-item-action">
+            <li key={movie.id} onClick={() => onSelectMovie(movie)} className="list-group-item list-group-item-action">
               {movie.title}
             </li>
           ))}
