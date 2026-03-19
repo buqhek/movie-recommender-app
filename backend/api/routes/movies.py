@@ -15,7 +15,7 @@ def query_movies():
     if not movie_title:
         return jsonify({'error' : 'Movie does not exist in database'}), 400
     
-    movie_info = db.query('SELECT * FROM movies WHERE title LIKE ?', (f'%{movie_title}%',))
+    movie_info = db.query('SELECT * FROM movies WHERE title LIKE ? LIMIT 10', (f'%{movie_title}%',))
 
     return jsonify(movie_info), 200
 
