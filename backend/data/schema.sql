@@ -6,4 +6,7 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    movies (title VARCHAR(60) PRIMARY KEY);
+    movies (
+        id INTEGER PRIMARY KEY,
+        title VARCHAR(60) NOT NULL
+    );
